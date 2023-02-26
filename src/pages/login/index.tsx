@@ -1,11 +1,13 @@
 import React from 'react';
-import { Title } from './style';
+import Logo from '../../icons/logo';
+import { Container } from './style';
 
 function Login() {
   return (
-    <div className="Login">
-      <Title>Login</Title>
-    </div>
+    <Container className="Login">
+      <h1>Welcome to carrier pigeon</h1>
+      <Logo color='#9F3FFF' width={100}/>
+    </Container>
   )
 }
 
