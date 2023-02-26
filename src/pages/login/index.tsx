@@ -23,6 +23,7 @@ function Login() {
     const user = await findUser(userInfo.username);
     if(user) {
       localStorage.setItem('userId', (user as User).id.toString());
+      localStorage.setItem('userName', (user as User).name.toString());
       return navigate('/my-chats');
     }
 
@@ -34,6 +35,7 @@ function Login() {
 
     const newUser = await createUser(userInfo.username, userInfo.name);
     localStorage.setItem('userId', newUser.id.toString());
+    localStorage.setItem('userName', newUser.name.toString());
     return navigate('/my-chats');
   }
 
