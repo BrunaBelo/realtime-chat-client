@@ -27,6 +27,11 @@ export const Container = styled.div`
       font-weight: normal;
     }
   }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const InputForm = styled.input`
