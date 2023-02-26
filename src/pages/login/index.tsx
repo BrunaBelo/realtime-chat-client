@@ -34,7 +34,6 @@ function Login() {
 
     const newUser = await createUser(userInfo.username, userInfo.name);
     localStorage.setItem('userId', newUser.id.toString());
-    console.log('asasasasas')
     return navigate('/my-chats');
   }
 
