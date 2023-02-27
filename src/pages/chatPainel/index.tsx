@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import createMessage from '../../api/createMessage';
 import getChatsFromUser from '../../api/getChatsFromUser';
 import getMessagesFromChat from '../../api/getMessagesFromChat';
 import { Chat } from '../../shared/interfaces/ichat';
@@ -9,6 +10,8 @@ function ChatPainel() {
   const [chats, setChats] = useState([] as Chat[]);
   const [messages, setMessages] = useState([] as Message[]);
   const [user, setUser] = useState('');
+  const [currentChatId, setCurrentChatId] = useState(null as number | null);
+  const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
     handleUserInfo()
@@ -27,8 +30,13 @@ function ChatPainel() {
   }
 
   const handleGetMessagesFromChat = async(chatId: number) => {
+    setCurrentChatId(chatId);
     const messages = await getMessagesFromChat(chatId);
     setMessages(messages);
+  }
+
+  const handleNewMessage = async(chatId: number, userId: number, content: string) => {
+    await createMessage(chatId, userId, content);
   }
 
   return (
@@ -74,8 +82,11 @@ function ChatPainel() {
           </div>
 
           <div id='chat-input'>
-            <input placeholder='Type your message'/>
-            <button>Send</button>
+            <input
+              placeholder='Type your message'
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
+            <button onClick={() => handleNewMessage(currentChatId as number, Number(localStorage.getItem('userId')), newMessage)}>Send</button>
           </div>
         </div>
       </div>
