@@ -1,6 +1,8 @@
 import { Message } from "./imessage"
+import { User } from "./iuser"
 
 export type Chat = {
   id: number,
-  messages: Message[]
+  messages: Message[],
+  users: User[]
 }

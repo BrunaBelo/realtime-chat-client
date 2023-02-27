@@ -82,22 +82,43 @@ export const Container = styled.div`
     justify-content: space-between;
     padding: 5px 10px 0px 10px;
 
+    
     #chat-content{
+      overflow-x: hidden;
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
       .message {
         width: auto;
         padding: 10px;
         border-radius: 20px;
         width: 40%;
+        margin-bottom: 10px;
       }
 
       .my-message {
-        background-color: red;
+        background-color: #6865DD;
         border-radius: 10px 10px 0px 10px;
         margin-left: calc(60% - 20px);
       }
 
       .received-message {
-        background-color: blue;
+        background-color: darkcyan;
         border-radius: 10px 10px 10px 0px;
       }
     }

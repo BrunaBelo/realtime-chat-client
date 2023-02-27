@@ -5,5 +5,6 @@ export type Message = {
   id: number,
   content: string,
   user: User,
-  chat: Chat
+  chat: Chat,
+  createdAt: Date
 }
