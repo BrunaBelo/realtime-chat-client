@@ -4,5 +4,6 @@ import { User } from "./iuser"
 export type Chat = {
   id: number,
   messages: Message[],
-  users: User[]
+  users: User[],
+  lastMessage: Message
 }

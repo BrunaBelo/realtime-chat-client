@@ -36,14 +36,32 @@ function ChatPainel() {
   }
 
   const handleNewMessage = async(chatId: number, userId: number, content: string) => {
-    await createMessage(chatId, userId, content);
+    const newMessage = await createMessage(chatId, userId, content);
+    const newMessagesList = messages;
+    newMessagesList.push(newMessage);
+    setMessages(newMessagesList);
+    setNewMessage('');
+    handleLastMessageChat();
+  }
+
+  const handleLastMessageChat = () => {
+    const chatList = chats;
+    const chatIndex = chatList.findIndex((chat => chat.id === currentChatId));
+    chatList[chatIndex].lastMessage.content = newMessage
+
+    const currentChatInfo = chatList[chatIndex];
+    chatList.splice(chatIndex, 1);
+    chatList.unshift(currentChatInfo);
+    setChats(chatList);
   }
 
   return (
     <Container>
       <div id='chat-painel'>
         <div id='chat-list'>
-          <div id='my-info'>{user}</div>
+          <div id='my-info'>
+            <p>{user}</p>
+          </div>
           {
             chats.map((chat) => (
               <div className='chat' onClick={() => handleGetMessagesFromChat(chat.id)}>
@@ -51,7 +69,7 @@ function ChatPainel() {
                   <h3>{chat.users.find((user) => user.id !== Number(localStorage.getItem('userId')))?.name}</h3>
                   <span>Online</span>
                 </div>
-                <p>{chat?.messages[0]?.content || '...'}</p>
+                <p>{chat?.lastMessage?.content || '...'}</p>
               </div>
             ))
           }
@@ -85,6 +103,14 @@ function ChatPainel() {
             <input
               placeholder='Type your message'
               onChange={(e) => setNewMessage(e.target.value)}
+              value={newMessage}
+              onKeyDown={
+                (e) => {
+                  if(e.key === 'Enter') {
+                    handleNewMessage(currentChatId as number, Number(localStorage.getItem('userId')), newMessage)
+                  }
+                }
+              }
             />
             <button onClick={() => handleNewMessage(currentChatId as number, Number(localStorage.getItem('userId')), newMessage)}>Send</button>
           </div>
